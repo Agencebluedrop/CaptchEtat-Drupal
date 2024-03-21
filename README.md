@@ -62,6 +62,6 @@ $settings['disable_captchetat'] = TRUE;
 - Lara Zaki - [lara_z](https://www.drupal.org/u/lara_z)
 - Georges ADWAN - [georges-adwan](https://www.drupal.org/u/georges-adwan)
 
-Supporting organizations:
+## Supporting organizations:
 
 - bluedrop.fr - ebizproduction - [bluedrop.fr - ebizproduction](https://www.drupal.org/bluedropfr-ebizproduction)
