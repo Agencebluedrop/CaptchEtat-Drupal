@@ -1,0 +1,10 @@
+{
+    "name": "drupal/captchetat",
+    "type": "drupal-module",
+    "description": "Provides a CAPTCHA webform element  by connecting to the CaptchEtat API.",
+    "homepage": "http://drupal.org/project/captchetat",
+    "require": {
+        "drupal/core": "^9 || ^10",
+        "drupal/webform": "^6.0"
+    }
+}

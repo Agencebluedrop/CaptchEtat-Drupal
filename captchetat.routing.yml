@@ -1,0 +1,28 @@
+captchetat.healthcheck:
+  path: "/healthcheck"
+  defaults:
+    _controller: 'Drupal\captchetat\Controller\CaptchetatController::healthCheck'
+    _title: "Check API Connection"
+  requirements:
+    _access: "TRUE"
+captchetat.getcaptcha:
+  path: "/simple-captcha-endpoint"
+  defaults:
+    _controller: 'Drupal\captchetat\Controller\CaptchetatController::getCaptcha'
+    _title: "Get Captcha from API"
+  requirements:
+    _access: "TRUE"
+captchetat.validatecaptcha:
+  path: "/valider-captcha"
+  defaults:
+    _controller: 'Drupal\captchetat\Controller\CaptchetatController::validationCaptcha'
+    _title: "Validation from API"
+  requirements:
+    _access: "TRUE"
+captchetat.settings:
+  path: '/admin/config/captchetat/settings'
+  defaults:
+    _form: '\Drupal\captchetat\Form\CaptchetatSettingsForm'
+    _title: "API CaptchEtat Configuration Page"
+  requirements:
+    _permission: 'administer CAPTCHETAT settings'

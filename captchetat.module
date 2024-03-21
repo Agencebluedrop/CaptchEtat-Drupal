@@ -1,0 +1,75 @@
+<?php
+
+/**
+ * @file
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Site\Settings;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_form_alter().
+ *
+ * This function removes captchetat from forms on local
+ * or test environments if disable_captchetat is set to
+ * true in settings.php.
+ */
+function captchetat_form_alter(array &$form, FormStateInterface $form_state, $form_id) {
+  $current_user = \Drupal::currentUser();
+
+  // Disable captchetat if override is set or api is down
+  // or has permission to skip.
+  $override_notice = [
+    '#type' => 'html_tag',
+    '#tag' => 'strong',
+  ];
+  foreach ($form['elements'] as $name => $element) {
+    if ($element['#type'] === 'captchetat') {
+      if (Settings::get('disable_captchetat', FALSE) === TRUE) {
+        $override_notice['#value'] = t('CAPTCHETAT is currently disabled via settings.php.');
+        $form['elements'][$name] = $override_notice;
+      }
+      elseif (!captchetat_health_check()) {
+        $override_notice['#value'] = t('API CaptchEtat is down');
+        $form['elements'][$name] = $override_notice;
+      }
+      elseif ($current_user->hasPermission('skip CAPTCHETAT')) {
+        // $override_notice['#value'] = t('User has permission to skip CAPTCHETAT');
+        // $form['elements'][$name] = $override_notice;
+        unset($form['elements'][$name]);
+      }
+    }
+
+  }
+  // // Later on for custom form.
+  // if (isset($form['captchetat'])) {
+  //   $form['captchetat'] = $override_notice;
+  // }
+}
+
+/**
+ * Returns true if API is up or false if API is down.
+ */
+function captchetat_health_check(): bool {
+  // Create an HTTP client.
+  $client = \Drupal::httpClient();
+
+  // Generate the full URL for the API Captchetat health check.
+  $api_check_url = \Drupal::request()->getSchemeAndHttpHost() . Url::fromRoute('captchetat.validatecaptcha')->toString();
+  // Make a GET request to the captchetat API.
+  try {
+    $response = $client->get($api_check_url, [
+      'headers' => [
+        'Content-Type: application/x-www-form-urlencoded',
+      ],
+    ]);
+
+    // Check if the response is successful.
+    return $response->getStatusCode() === 200 ? TRUE : FALSE;
+  }
+  catch (Exception $e) {
+    // Handle exceptions, if any.
+    \Drupal::logger('captchetat')->error(t('Error calling Captchetat API: @error', ['@error' => $e->getMessage()]));
+  }
+}

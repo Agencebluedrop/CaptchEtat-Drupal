@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the CAPTCHETAT module.
+ */
+
+/**
+ * Implements hook_uninstall().
+ */
+function captchetat_uninstall() {
+  try {
+    $webforms = \Drupal::entityTypeManager()->getStorage('webform')->loadMultiple();
+    // Iterate through each webform entity.
+    /** @var Drupal\webform\Entity\Webform $webform */
+    foreach ($webforms as $webform) {
+      // Load the webform elements.
+      $webform_elements = $webform->getElementsDecoded();
+      // Iterate through each element.
+      foreach ($webform_elements as $element_key => $element) {
+        // Check if the element type is 'captchetat'.
+        if (!empty($element['#type']) && $element['#type'] === 'captchetat') {
+          // Delete the captchetat element.
+          $webform->deleteElement($element_key);
+        }
+      }
+      // Save the updated webform entity.
+      $webform->save();
+    }
+
+    // Invalidate all caches.
+    \Drupal::cache()->invalidateAll();
+
+    // Log a message indicating successful deletion.
+    \Drupal::logger('captchetat')->notice('Deleted all captchetat webform elements.');
+  }
+  catch (\Exception $e) {
+    // Handle any exceptions that occur during deletion.
+    \Drupal::logger('captchetat')->error('An error occurred while deleting captchetat webform elements: @message', ['@message' => $e->getMessage()]);
+  }
+}

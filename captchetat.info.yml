@@ -1,0 +1,13 @@
+name: CAPTCHETAT
+description: Provides a CAPTCHA webform element  by connecting to the CaptchEtat API
+package: Spam control
+type: module
+core_version_requirement: '^9 || ^10'
+configure: captchetat.settings
+
+dependencies:
+  - 'webform:webform'
+libraries:
+  - captchetat/captchetat
+
+version: 1.0.0

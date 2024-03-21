@@ -1,0 +1,10 @@
+captchetat:
+  js:
+    js/captchetat.js: {}
+    js/jquery-captcha.min.js: { minified: true }
+  dependencies:
+    - core/jquery
+  css:
+    theme:
+      css/captchetat.css: {}
+
