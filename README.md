@@ -70,4 +70,4 @@ $settings['disable_captchetat'] = TRUE;
 
 ## Supporting organizations:
 
-- [bluedrop.fr](https://www.bluedrop.fr/) - ebizproduction - [bluedrop.fr - ebizproduction](https://www.drupal.org/bluedropfr-ebizproduction)
+- [bluedrop.fr](https://www.bluedrop.fr/) : [bluedrop.fr - ebizproduction](https://www.drupal.org/bluedropfr-ebizproduction)
