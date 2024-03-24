@@ -37,17 +37,23 @@ where you can configure the CAPTCHETAT module.
 1. Navigate to Administration > Extend and enable the module.
 2. Proceed to Administration > Configuration > CAPTCHETAT
    to access the configuration page.
-3. On the configuration page, enter the required API keys and URLs: [API CaptchEtat](https://api.gouv.fr/les-api/api-captchetat)
+   
+   ![captchetat configuration page](screenshots/config-page.png)
+   
+4. On the configuration page, enter the required API keys and URLs: [API CaptchEtat](https://api.gouv.fr/les-api/api-captchetat)
     - API URL
     - Oauth URL
     - Client ID
     - Client Secret 
-4. Save configuration.
+5. Save configuration.
 
 
 ## Development
 
-You can simply add the CAPTHETAT element to your webforms like other fields.
+You can simply add the CAPTCHETAT element to your webforms like other fields.
+
+### Adding CAPTCHETAT to webform
+![captchetat element to be added in webform](screenshots/add-element.png)
 
 You can disable captchetat validation in your local or test environment by adding the
 following line to `settings.php`:
